@@ -6,10 +6,16 @@ public abstract class MeanMetric extends Metric
 	MeanMetric()
 	{
 		nClasses = new NClasses();
-		nClasses.setProject(project);
-		nClasses.calculate();
+		result = new MeanResult();
 	}
 
 	public abstract void calculate();
+
+	public void setProject(Project proj)
+	{
+		project = proj;
+		nClasses.setProject(project);
+		nClasses.calculate();
+	}
 
 }

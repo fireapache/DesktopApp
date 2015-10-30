@@ -13,6 +13,7 @@ public class NMethods extends MeanMetric
 		if (project != null)
 		{
 			int counter = 0;
+			float variation = 0;
 			float deviation = 0;
 
 			for (int i = 0; i < project.classes.size(); i++)
@@ -20,25 +21,24 @@ public class NMethods extends MeanMetric
 				counter += project.classes.get(i).metrics.nMethods;
 			}
 
-			//MeanResult newResult = new MeanResult();
-
-			//result.value = (float)counter / (float)nClasses.result.value;
 			result.value = (float)counter / (float)project.classes.size();
 
 			for (int i = 0; i < project.classes.size(); i++)
 			{
-				deviation += Math.pow((project.classes.get(i).metrics.nMethods - result.value), 2.0);
+				variation += Math.pow((project.classes.get(i).metrics.nMethods - result.value), 2.0);
 			}
 
-			deviation = (float)Math.sqrt(deviation / (float)project.classes.size());
+			variation = variation / (float)project.classes.size();
+			deviation = (float)Math.sqrt(variation);
 
-			//newResult.stdDeviation = deviation;
+			try
+			{
+				((MeanResult)result).stdDeviation = deviation;
+			}
+			catch (Exception e)
+			{
 
-			//result = newResult;
-
-			System.out.println("==== NMethods");
-			System.out.println("Result: " + result.value);
-			System.out.println("Deviation: " + deviation);
+			}
 		}
 	}
 }
