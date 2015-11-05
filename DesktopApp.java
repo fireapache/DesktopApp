@@ -7,12 +7,17 @@ import java.awt.event.*;
 import javax.swing.JOptionPane;
 import java.util.List;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
 
 public class DesktopApp extends JFrame
 {
 	private Project project;
 
 	private JButton genMetrics, saveXML;
+
+	private ButtonHandler buttonHandler;
 
 	public static void main(String args[])
 	{
@@ -23,7 +28,7 @@ public class DesktopApp extends JFrame
 	{
 		super("DesktopApp");
 
-		ButtonHandler buttonHandler = new ButtonHandler();
+		buttonHandler = new ButtonHandler();
 
 		genMetrics = new JButton("Generate Metrics");
 		genMetrics.addActionListener(buttonHandler);
@@ -52,12 +57,17 @@ public class DesktopApp extends JFrame
 			project.run();
 
 			showResults();
-
-			saveXML = new JButton("Save XML");
-			getContentPane().add(saveXML);
-			setVisible(false);
-			setVisible(true);
+			showSaveXMLButton();
 		}
+	}
+
+	private void showSaveXMLButton()
+	{
+		saveXML = new JButton("Save XML");
+		getContentPane().add(saveXML);
+		setVisible(false);
+		setVisible(true);
+		saveXML.addActionListener(buttonHandler);
 	}
 
 	private String selectDirectory()
@@ -79,6 +89,25 @@ public class DesktopApp extends JFrame
 		return directory;
 	}
 
+	private String selectFile()
+	{
+		String filePath;
+		JFileChooser chooser = new JFileChooser();
+
+		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+		{
+			filePath = chooser.getSelectedFile() + "";
+		}
+		else
+		{
+			filePath = "None";
+		}
+
+		return filePath;
+	}
+
 	private void showResults()
 	{
 		String resultStr = new String();
@@ -94,6 +123,67 @@ public class DesktopApp extends JFrame
 		JOptionPane.showMessageDialog(null, resultStr);
 	}
 
+	private String generateXML()
+	{
+		String xmlFile = "";
+		MeanResult meanResult;
+
+		xmlFile += "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" + '\n';
+		xmlFile += "<metrics>" + '\n';
+
+		ArrayList<Result> results = project.getResults();
+
+		for (int i = 0; i < results.size(); i++)
+		{
+			xmlFile += '\t' + "<metric>" + '\n';
+			xmlFile += "\t\t" + "<name>" + results.get(i).metric + "</name>" + '\n';
+			xmlFile += "\t\t" + "<value>" + results.get(i).value + "</value>" + '\n';
+
+			try
+			{
+				meanResult = (MeanResult)results.get(i);
+				xmlFile += "\t\t" + "<deviation>" + meanResult.stdDeviation + "</deviation>" + '\n';
+			}
+			catch (Exception e)
+			{
+
+			}
+
+			xmlFile += '\t' + "</metric>" + '\n';
+		}
+
+		xmlFile += "</metrics>";
+
+		return xmlFile;
+	}
+
+	private void storeXML()
+	{
+		String xmlContent;
+		String filePath;
+
+		xmlContent = generateXML();
+		filePath = selectFile();
+
+		try
+		{
+			FileWriter writer = new FileWriter(filePath, false);
+			PrintWriter printer = new PrintWriter(writer);
+
+			printer.print(xmlContent);
+			printer.close();
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			return;
+		}
+
+		System.out.println("====================");
+		System.out.println("XML file saved!");
+		System.out.println(filePath);
+	}
+
 	class ButtonHandler implements ActionListener
 	{
 		public void actionPerformed(ActionEvent ae)
@@ -104,7 +194,7 @@ public class DesktopApp extends JFrame
 			}
 			else if (ae.getSource() == saveXML)
 			{
-				//storeXML();
+				storeXML();
 			}
 		}
 	}
