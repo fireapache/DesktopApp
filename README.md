@@ -7,5 +7,3 @@
 5. Clique OK.
 6. Veja as métricas extraídas.
 7. Clique em `Save XML` ou repita o processo desde 3.
-
-OBS.: a opção `Save XML` não está funcionando no momento.
