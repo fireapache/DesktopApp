@@ -110,7 +110,7 @@ public class Project
 			if (parent != null)
 			{
 				classes.get(i).setSuperClass(parent);
-				System.out.println(classes.get(i).getName() + " son of " + parent.getName());
+				System.out.println(classes.get(i).getName() + " extends " + parent.getName());
 			}
 		}
 	}
