@@ -39,6 +39,15 @@ public class DesktopApp extends JFrame
 		setLocation(500, 250);
 		getContentPane().add(genMetrics);
 		setVisible(true);
+
+		addWindowListener(new WindowAdapter()
+		{
+			public void windowClosing(WindowEvent we)
+			{
+				System.exit(0);
+			}
+		});
+
 	}
 
 	private void generateMetrics()
