@@ -135,8 +135,7 @@ public class DesktopApp extends JFrame
 
 		for (int i = 0; i < results.size(); i++)
 		{
-			xmlFile += '\t' + "<metric>" + '\n';
-			xmlFile += "\t\t" + "<name>" + results.get(i).metric + "</name>" + '\n';
+			xmlFile += "\t" + "<" + results.get(i).metric + '>' + '\n';
 			xmlFile += "\t\t" + "<value>" + results.get(i).value + "</value>" + '\n';
 
 			try
@@ -149,7 +148,7 @@ public class DesktopApp extends JFrame
 
 			}
 
-			xmlFile += '\t' + "</metric>" + '\n';
+			xmlFile += "\t" + "<" + '/' + results.get(i).metric + '>' + '\n';
 		}
 
 		xmlFile += "</metrics>";

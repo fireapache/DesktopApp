@@ -5,7 +5,7 @@ public class NAtributes extends MeanMetric
 	NAtributes()
 	{
 		super();
-		result.metric = "NAtributes";
+		result.metric = "attributes";
 	}
 
 	public void calculate()

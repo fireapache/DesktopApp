@@ -5,7 +5,7 @@ public class MaxDIT extends Metric
 	MaxDIT()
 	{
 		super();
-		result.metric = "MaxDIT";
+		result.metric = "dit";
 	}
 
 	public void calculate()

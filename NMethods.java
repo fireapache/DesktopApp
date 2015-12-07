@@ -5,7 +5,7 @@ public class NMethods extends MeanMetric
 	NMethods()
 	{
 		super();
-		result.metric = "NMethods";
+		result.metric = "methods";
 	}
 
 	public void calculate()

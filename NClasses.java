@@ -5,7 +5,7 @@ public class NClasses extends Metric
 	public NClasses()
 	{
 		super();
-		result.metric = "NClasses";
+		result.metric = "classes";
 	}
 
 	public void calculate()

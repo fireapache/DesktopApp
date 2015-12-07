@@ -4,7 +4,7 @@ public class NAbstracts extends Metric
 
 	NAbstracts()
 	{
-		result.metric = "NAbstracts";
+		result.metric = "abstracts";
 	}
 
 	public void calculate()

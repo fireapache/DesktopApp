@@ -5,7 +5,7 @@ public class NCodeLines extends MeanMetric
 	NCodeLines()
 	{
 		super();
-		result.metric = "NCodeLines";
+		result.metric = "lines";
 	}
 
 	public void calculate()

@@ -5,7 +5,7 @@ public class NInterfaces extends Metric
 	public NInterfaces()
 	{
 		super();
-		result.metric = "NInterfaces";
+		result.metric = "interfaces";
 	}
 
 	public void calculate()
