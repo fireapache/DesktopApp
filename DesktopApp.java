@@ -63,11 +63,14 @@ public class DesktopApp extends JFrame
 
 	private void showSaveXMLButton()
 	{
-		saveXML = new JButton("Save XML");
-		getContentPane().add(saveXML);
-		setVisible(false);
-		setVisible(true);
-		saveXML.addActionListener(buttonHandler);
+		if (saveXML == null)
+		{
+			saveXML = new JButton("Save XML");
+			getContentPane().add(saveXML);
+			setVisible(false);
+			setVisible(true);
+			saveXML.addActionListener(buttonHandler);
+		}
 	}
 
 	private String selectDirectory()
